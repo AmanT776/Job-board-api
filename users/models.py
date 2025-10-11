@@ -12,9 +12,11 @@ class CustomUser(AbstractBaseUser):
     last_name = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=20)
     role = models.CharField(max_length=10,choices=Role.choices,default=Role.SEEKER)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    last_login = models.DateTimeField(auto_now=True,null=True)
 
     USERNAME_FIELD = 'email'
 
