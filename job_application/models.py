@@ -3,10 +3,21 @@ from users.models import CustomUser
 # Create your models here.
 from users.models import CustomUser
 # Create your models here.
+
+class Skill(models.Model):
+    name = models.CharField(max_length=30)
+    user = models.ManyToManyField(CustomUser)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = "skills"
+
 class Job(models.Model):
     title = models.TextField()
     description = models.TextField()
     employer = models.ForeignKey(CustomUser,related_name="jobs",on_delete=models.CASCADE)
+    skill = models.ManyToManyField(Skill)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=30)
@@ -14,16 +25,6 @@ class Job(models.Model):
 
     class Meta:
         db_table = "jobs"
-
-class Skill(models.Model):
-    name = models.CharField(max_length=30)
-    job = models.ManyToManyField(Job)
-    user = models.ManyToManyField(CustomUser)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = "skills"
 
 class Application(models.Model):
     seeker = models.ManyToManyField(CustomUser)
