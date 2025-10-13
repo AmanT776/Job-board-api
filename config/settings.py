@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     #local
-    'users'
+    'users',
+    'job_application'
 ]
 
 MIDDLEWARE = [
