@@ -12,3 +12,16 @@ class Job(models.Model):
     location = models.CharField(max_length=30)
     salary = models.FloatField()
 
+class Skill(models.Model):
+    name = models.CharField(max_length=30)
+    job = models.ManyToManyField(Job,created_at=True)
+    user = models.ManyToManyField(CustomUser)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Application(models.Model):
+    seeker = models.ManyToManyField(CustomUser)
+    job = models.ForeignKey(Job,related_name="applications",on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
