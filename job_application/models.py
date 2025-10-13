@@ -12,12 +12,18 @@ class Job(models.Model):
     location = models.CharField(max_length=30)
     salary = models.FloatField()
 
+    class Meta:
+        db_table = "jobs"
+
 class Skill(models.Model):
     name = models.CharField(max_length=30)
-    job = models.ManyToManyField(Job,created_at=True)
+    job = models.ManyToManyField(Job)
     user = models.ManyToManyField(CustomUser)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = "skills"
 
 class Application(models.Model):
     seeker = models.ManyToManyField(CustomUser)
@@ -25,3 +31,5 @@ class Application(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = "applications"
