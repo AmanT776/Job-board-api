@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import CustomUser
+from .models import CustomUser,Profile
 from rest_framework.response import Response
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,3 +28,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             del token['password']
         return token
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id','user']

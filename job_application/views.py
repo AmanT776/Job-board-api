@@ -4,11 +4,13 @@ from .serializers import ApplicationSerializer, JobSerializer, SkillSerializer
 from .models import (
     Job,Skill,Application
 )
+
 from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework import status
 from rest_framework.response import Response
+
 # Create your views here.
 
 class JobViewsets(viewsets.ModelViewSet):

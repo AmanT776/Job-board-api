@@ -29,3 +29,6 @@ class CustomUser(AbstractBaseUser):
     def clean(self):
         if self.role == Role.EMPLOYER and self.skill.exists:
             raise ValidationError("Employers cannot have skills")
+        
+class Profile(models.Model):
+    user = models.OneToOneField(CustomUser,on_delete=models.CASCADE)
