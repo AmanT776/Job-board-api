@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import CustomUserManager
+from django.core.exceptions import ValidationError
 
 class Role(models.TextChoices):
     EMPLOYER = "employer", "Employer"
@@ -12,6 +13,7 @@ class CustomUser(AbstractBaseUser):
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.SEEKER)
+    skill = models.ManyToManyField('job_application.Skill',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -19,7 +21,11 @@ class CustomUser(AbstractBaseUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.first_name 
 
     class Meta:
         db_table = 'users'
+
+    def clean(self):
+        if self.role == Role.EMPLOYER and self.skill.exists:
+            raise ValidationError("Employers cannot have skills")
