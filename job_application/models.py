@@ -27,10 +27,11 @@ class Job(models.Model):
         db_table = "jobs"
 
 class Application(models.Model):
-    seeker = models.ManyToManyField(CustomUser)
+    seeker = models.ForeignKey(CustomUser,related_name="applications",on_delete=models.CASCADE)
     job = models.ForeignKey(Job,related_name="applications",on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         db_table = "applications"
