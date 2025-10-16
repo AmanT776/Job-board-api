@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
 
 load_dotenv()
 
@@ -143,4 +144,6 @@ REST_FRAMEWORK = {
 }
 SIMPLE_JWT = {
   "TOKEN_OBTAIN_SERIALIZER": "users.serializers.CustomTokenObtainPairSerializer",
+  "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+  "REFRESH_TOKEN_LIFETIME": timedelta(weeks=2),
 }
