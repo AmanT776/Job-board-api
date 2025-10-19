@@ -24,6 +24,7 @@ class JobViewsets(viewsets.ModelViewSet):
         for job in queryset:
             skills = [skill.name for skill in job.skill.all()]
             jobs.append({
+                "id": job.id,
                 "title": job.title,
                 "description": job.description,
                 "skill": skills,
